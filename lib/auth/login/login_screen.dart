@@ -142,26 +142,20 @@ class _LoginScreenState extends State<LoginScreen> {
             posActionName: 'Ok', title: 'Success', posAction: () {
           Navigator.pushReplacementNamed(context, HomeScreen.routeName);
         });
-        print('login sucessfully');
-        print(credential.user?.uid ?? "");
       } on FirebaseAuthException catch (e) {
         if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
           // todo: hide loading
           DialogUtils.hideLoading(context);
           // todo : show message
           DialogUtils.showMessage(context,
-              'No user found for that email.or Wrong password provided for that user.',
-              posActionName: 'Ok');
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
+              'No user found for that email or Wrong password provided for that user.',
+              posActionName: 'Ok', title: 'Error');
         }
       } catch (e) {
         // todo: hide loading
         DialogUtils.hideLoading(context);
         // todo : show message
         DialogUtils.showMessage(context, e.toString(), posActionName: 'Ok');
-        print(e);
       }
     }
   }
